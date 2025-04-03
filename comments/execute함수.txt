@@ -1,0 +1,12 @@
+getStock() 함수 내
+mysql_cur.execute("delete from us_stock.stock where date >= %s and date <= %s and symbol = %s", (_start_date, _end_date, _symbol))
+
+mysql_cur.execute("insert into us_stock.stock (date, symbol, open, high, low, close, adj_close, volume) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", 
+                              (_date, _symbol, _open, _high, _low, _close, _adj_close, _volume))
+
+mysql_cur.execute("update us_stock.nasdaq_company set open = %s, high = %s, low = %s, close = %s, adj_close = %s, volume = %s, last_crawel_date_stock = %s where symbol = %s", 
+                          (_open, _high, _low, _close, _adj_close, _volume, _date, _symbol))
+
+
+getCompany() 함수 내
+mysql_cur.execute("select symbol, company_name, ipo_year, last_crawel_date_stock from us_stock.nasdaq_company where is_delete is null;")

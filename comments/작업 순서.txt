@@ -1,0 +1,52 @@
+주식 분석 시스템의 3가지 영역
+   주식 정보가 담긴 웹 사이트, 파이썬 크롤러 , MySQL 서버
+
+
+작업 순서
+1 .파이썬 크롤러가 수집할 기업의 심벌 목록을 MySQL서버에서 가져온다. 
+   이 목록은 사용자가 원하는 기업의 이름을 미리 정의해 놓은 것. 
+   주식에서는 여러 기업을 식별 하기위한 상징적인 문자로 심벌을 활용하는데 
+   여기에서는 이러한 심벌로 수집할 기업의 목록을 구성.
+2. 파이썬 크롤러는 심벌 목록을 활용하여 주식 정보가 담긴 웹 사이트 (야후 파이낸스)의 정보를 크롤링.
+3. 파이썬 크롤러가 요청한 데이터를 웹 사이트(야후 파이낸스 API)로부터 전달받은 
+   파이썬 크롤러는 DB 저장을 위해 데이터를 가공하고 코드를 실행.
+4. 데이터베이스 테이블 구조에 맞춰 데이터를 저장.
+5. 사용자는 데이터베이스에 접속하여 파이썬 크롤러를 통해 저장된 데이터를 다양하게 활용.
+
+야후 파이낸스( https://finance.yahoo.com )
+   평소에 관심있던 기업이 있다면 이름 또는 심벌로 검색하여 주식 정보를 확인 가능.
+   야후 파이낸스는 해외 사이트이므로 반드시 기업명 을 영어로 검색 . 
+   NASDAQ 에 등록된 기업 및 국내 기업도 검색 가능.
+   
+   1. 페이지를 크롤링하여 데이터를 추출, 
+   2. 야후 파이낸스에서는 주식 데이터를 제공하는 파이썬 라이브러리를 배포하고 있어 
+      이를 활용해 주식 데이터를 가져올 예정.
+
+
+CREATE TABLE nasdaq_company(
+    symbol VARCHAR(255),                심벌이름
+    company_name VARCHAR(255),          기업이름
+    country VARCHAR (255),              기업국가
+    ipo_year INT,                       IPO 년도
+    sector VARCHAR(255),
+    industry VARCHAR(255),              산업군
+    last_crawel_date_stock DATETIME,    마지막 크롤링한 날짜
+    is_delete VARCHAR(5),
+    open DECIMAL(18,2),                 시작가
+    high DECIMAL(18,2),                 장중 최고가
+    low DECIMAL(18,2),                  장중 최저가
+    close DECIMAL(18,2),                종가
+    adj_close DECIMAL(18,2),            시간외 종가
+    volume BIGINT
+);
+
+CREATE TABLE stock(
+    date DATETIME,              주가 입력 날짜
+    symbol VARCHAR(255),        심벌이름
+    open DECIMAL(18,2),         시작가
+    high DECIMAL(18,2),         장중 최고가
+    low DECIMAL(18,2),          장중 최저가
+    close DECIMAL(18,2),        종가
+    adj_close DECIMAL(18,2),    시간외 종가
+    volume BIGINT
+);
