@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Mar  5 09:02:10 2025
-
-@author: Roh Jun Seok
-"""
 # 1. 파이썬 패키지 import 
 from datetime import datetime, timedelta
 
@@ -13,7 +7,7 @@ import yfinance as yf
 # 2. MySQL 접속 정보
 hostName = 'localhost'
 userName = 'root'
-pw = 'Joshua0526!'
+pw = 'pw'
 dbName = 'us_stock'
 
 mysql_conn = pymysql.connect(host=hostName,
@@ -131,4 +125,3 @@ def getCompany():
 # 5. main.py 파일 실행
 if __name__ == '__main__':
     getCompany()
-
